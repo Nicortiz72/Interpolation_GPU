@@ -11,12 +11,13 @@ import pycuda.driver as drv
 import numpy as np
 import sys
 from time import perf_counter 
-# returns the float value of time in seconds. 
-#Return the value (in fractional seconds) of a performance counter, i.e. a clock with the highest available resolution to measure a short duration. 
 
+
+#GPU parallelization requirements
 from math import ceil
 from pycuda import gpuarray
 from pycuda.compiler import SourceModule
+
 
 def read_image(path):
     '''Read image and return the image propertis.
@@ -50,6 +51,11 @@ def image_change_scale(img, dimension, scale=100, interpolation=cv2.INTER_LINEAR
     return resized_img
 
 
+    """
+    Parallel GPU solution with CUDA implemented by:
+    Nicolas Ortiz, Juan Rengifo, Fancisco Suarez, Juan Gomez
+    https://github.com/Nicortiz72/Interpolation_GPU/
+    """
 def parallel_nearest_interpolation(image, dimension):
     '''Nearest neighbor interpolation method to convert small image to original image
     Parameters:
@@ -129,6 +135,12 @@ def nearest_interpolation(image, dimension):
     print("Serial Time:",T)
     return new_image,T
 
+
+    """
+    Parallel GPU solution with CUDA implemented by:
+    Nicolas Ortiz, Juan Rengifo, Fancisco Suarez, Juan Gomez
+    https://github.com/Nicortiz72/Interpolation_GPU/
+    """
 def parallel_bilinear_interpolation(image, dimension):
     '''Bilinear interpolation method to convert small image to original image
     Parameters:
